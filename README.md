@@ -9,7 +9,7 @@ Therefore, we review three graph neural networks based methods that use this kno
 
 ## Repository Organisation
 
-- `src/`
+- `src/` : Source code.
 - `notebooks/` : Notebooks to train the models
   - `baseline.ipynb` : Baseline models 
   - `ggnn.ipynb` : Trains a Graph Gated Neural Network (GGNN) adapted to the multi-label classification task. Inspired from [3]
@@ -18,13 +18,13 @@ Therefore, we review three graph neural networks based methods that use this kno
 
 ## Data
 
-Data expects to be put in an `input/` directory at the root. Three subfolders are needed:
+Data is expected to be put in an `input/` directory at the root. Three subfolders are needed:
 
 - `VOC2007/` : Contains the Pascal VOC 2007 train, val and test data which can be obtained [here]( http://host.robots.ox.ac.uk/pascal/VOC/voc2007/)
 - `glove/` : Contains the GloVe embeddings, which can be downloaded [here](https://nlp.stanford.edu/projects/glove/)
 - `visual_genome/` : Contains the relationships of the Visual Genome dataset, downloadable [here](https://visualgenome.org/api/v0/api_home.html)
 
-
+Paths to the data can be changed in the `params.py` script.
 
 ## Main References
 

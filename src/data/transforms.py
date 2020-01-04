@@ -3,10 +3,28 @@ from imports import *
 
 
 def to_tensor(x, **kwargs):
+    """
+    Swaps the channels and converts an image to float
+    
+    Arguments:
+        x {numpy array} -- Image
+    
+    Returns:
+        numpy array -- Transformed Image
+    """
     return x.transpose(2, 0, 1).astype("float32")
 
 
-def get_transfos(test=False, size=256, **kwargs):
+def get_transfos(size=256, test=False, **kwargs):
+    """[summary]
+    
+    Keyword Arguments:
+        size {int} -- Image size (default: {256})
+        test {bool} -- Whether to return test time transforms (default: {False})  
+    
+    Returns:
+        albumentations transforms -- Transforms to apply
+    """
     if not test:
         transforms = albu.Compose(
             [
@@ -33,6 +51,19 @@ def get_transfos(test=False, size=256, **kwargs):
 
 
 def get_transfos_lssg(size=224, scale_size=640, test=False):
+    """
+    Transforms applied in the paper : 
+    Tianshui Chen, Muxin Xu, Xiaolu Hui, Hefeng Wu, and Liang Lin. Learning semantic-specific graphrepresentation for multi-label image recognition
+    
+    Keyword Arguments:
+        size {int} -- Image size (default: {224})
+        scale_size {int} -- Size to crop from (default: {640})
+        test {bool} -- Whether to return test time transforms (default: {False})
+    
+    Returns:
+        torch transforms -- Transforms to apply
+    """
+
     if not test:
         transfos = transforms.Compose(
             [

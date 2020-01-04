@@ -3,6 +3,12 @@ from params import *
 
 
 def seed_everything(seed):
+    """
+    Seeds basic parameters for reproductibility of results
+    
+    Arguments:
+        seed {int} -- Number of the seed
+    """
     random.seed(seed)
     os.environ["PYTHONHASHSEED"] = str(seed)
     np.random.seed(seed)
@@ -13,12 +19,37 @@ def seed_everything(seed):
 
 
 def save_model_weights(model, filename, verbose=1, cp_folder=CP_PATH):
+    """
+    Saves the weights of a PyTorch model
+    
+    Arguments:
+        model {torch module} -- Model to save the weights of
+        filename {str} -- Name of the checkpoint
+    
+    Keyword Arguments:
+        verbose {int} -- Whether to display infos (default: {1})
+        cp_folder {str} -- Folder to save to (default: {CP_PATH})
+    """
     if verbose:
-        print(f"\n -> Saving weights to {os.path.join(cp_folder,filename)}\n")
+        print(f"\n -> Saving weights to {os.path.join(cp_folder, filename)}\n")
     torch.save(model.state_dict(), os.path.join(cp_folder, filename))
 
 
-def load_model_weights(model, filename, verbose=1, cp_folder=CP_PATH, strict=True):
+def load_model_weights(model, filename, verbose=1, cp_folder=CP_PATH):
+    """
+    Loads the weights of a PyTorch model. The exception handles cpu/gpu incompatibilities
+    
+    Arguments:
+        model {torch module} -- Model to load the weights to
+        filename {str} -- Name of the checkpoint
+    
+    Keyword Arguments:
+        verbose {int} -- Whether to display infos (default: {1})
+        cp_folder {str} -- Folder to load from (default: {CP_PATH})
+    
+    Returns:
+        torch module -- Model with loaded weights
+    """
     if verbose:
         print(f"\n -> Loading weights from {os.path.join(cp_folder,filename)}\n")
     try:
@@ -26,12 +57,24 @@ def load_model_weights(model, filename, verbose=1, cp_folder=CP_PATH, strict=Tru
     except BaseException:
         model.load_state_dict(
             torch.load(os.path.join(cp_folder, filename), map_location="cpu"),
-            strict=strict,
+            strict=True,
         )
     return model
 
 
 def count_parameters(model, all=False):
+    """
+    Count the parameters of a model
+    
+    Arguments:
+        model {torch module} -- Model to count the parameters of
+    
+    Keyword Arguments:
+        all {bool} -- Whether to include not trainable parameters in the sum (default: {False})
+    
+    Returns:
+        int -- Number of parameters
+    """
     if all:
         return sum(p.numel() for p in model.parameters())
     else:
@@ -39,6 +82,15 @@ def count_parameters(model, all=False):
 
 
 def plot_attention_ssgrl(model, dataset, idx):
+    """
+    Plots the attention maps of the Semantic Decoupling module for the detected classes of image dataset[idx]
+    As the maps are smaller than the image, they are interpolated with bicubic resampling
+    
+    Arguments:
+        model {SSGRLClassifier} -- Trained SSGRL model
+        dataset {MLCDataset} -- Dataset to sample images from
+        idx {int} -- Index of the image is the dataset
+    """
     img = dataset[idx][0]
     img_tensor = torch.tensor(img).unsqueeze(0).cuda()
 
@@ -79,6 +131,17 @@ def plot_attention_ssgrl(model, dataset, idx):
 
 
 def plot_coocurence(matrix, classes, cmap=plt.cm.Blues, title='Coocurence Matrix'):
+    """
+    Plots a matrix of coocurence or appearance conditional probabilities of classes
+    
+    Arguments:
+        matrix {numpy array} -- Matrix to plot
+        classes {list of strings} -- Class names, will be used for ticks
+    
+    Keyword Arguments:
+        cmap {matplotlib colormap} -- Colormap (default: {plt.cm.Blues})
+        title {str} -- Title of the figure (default: {'Coocurence Matrix'})
+    """
     fig, ax = plt.subplots(figsize=(12, 8))
 
     plt.imshow(matrix, interpolation='nearest', cmap=cmap)
@@ -94,7 +157,22 @@ def plot_coocurence(matrix, classes, cmap=plt.cm.Blues, title='Coocurence Matrix
     plt.xlabel('Predicted label', size=12)
 
 
-def threshold_and_smooth_matrix(A, t=0.5, p=0.1):
+def threshold_and_reweight_matrix(A, t=0.5, p=0.1):
+    """
+    Applies the matrix thresholding and reweighting such as described in :
+    Zhao-Min Chen, Xiu-Shen Wei, Peng Wang, and Yanwen Guo. Multi-label image recognition with graph convolutional networks
+    (http://openaccess.thecvf.com/content_CVPR_2019/papers/Chen_Multi-Label_Image_Recognition_With_Graph_Convolutional_Networks_CVPR_2019_paper.pdf)
+    
+    Arguments:
+        A {numpy array} -- Matrix of appearance conditional probabilities
+    
+    Keyword Arguments:
+        t {float} -- threshold (default: {0.5})
+        p {float} -- reweighting p (default: {0.1})
+    
+    Returns:
+        numpy array -- Reweighted and thesholded matrix
+    """
     n_edges = A.shape[0]
     A = (A > t).astype(float)
     np.fill_diagonal(A, 0)

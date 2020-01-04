@@ -1,4 +1,5 @@
 # From https://github.com/HCPLab-SYSU/SSGRL/
+# Code is ugly and can most likely be improved
 
 import numpy as np
 

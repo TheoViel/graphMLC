@@ -7,7 +7,7 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 
 SEED = 2019
 
-DATA_PATH = '../input/VOCdevkit/VOC2007/'
+DATA_PATH = '../input/VOC2007/'
 
 IMG_PATH = DATA_PATH + 'JPEGImages/'
 ANNOTATION_PATH = DATA_PATH + 'Annotations/'
@@ -21,6 +21,8 @@ TEST_IMGS = DATA_PATH + "ImageSets/Layout/test.txt"
 
 GLOVE_PATH = '../input/glove/'
 GLOVE_DIM = 300
+
+VISUAL_GENOME_PATH  = '../input/visual_genome/
 
 CLASSES = [
         'aeroplane', 'bicycle', 'bird', 'boat',

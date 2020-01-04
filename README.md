@@ -9,22 +9,30 @@ Therefore, we review three graph neural networks based methods that use this kno
 
 ## Repository Organisation
 
-- src
-- notebooks
+- `src/`
+- `notebooks/` : Notebooks to train the models
+  - `baseline.ipynb` : Baseline models 
+  - `ggnn.ipynb` : Trains a Graph Gated Neural Network (GGNN) adapted to the multi-label classification task. Inspired from [3]
+  - `ssgrl.ipynb` : Trains a model following the Semantic Specific Graph Representation Learning   (SSGRL) [1] framework
+  - `mlgcn.ipynb` : Trains a Multi Label Graph Convolution Network (GCN) [2]
 
 ## Data
 
+Data expects to be put in an `input/` directory at the root. Three subfolders are needed:
+
+- `VOC2007/` : Contains the Pascal VOC 2007 train, val and test data which can be obtained [here]( http://host.robots.ox.ac.uk/pascal/VOC/voc2007/)
+- `glove/` : Contains the GloVe embeddings, which can be downloaded [here](https://nlp.stanford.edu/projects/glove/)
+- `visual_genome/` : Contains the relationships of the Visual Genome dataset, downloadable [here](https://visualgenome.org/api/v0/api_home.html)
 
 
 
 ## Main References
 
-- [Tianshui Chen, Muxin Xu, Xiaolu Hui, Hefeng Wu, and Liang Lin. Learning semantic-specific graphrepresentation for multi-label image recognition. ICCV 2019.
-](http://openaccess.thecvf.com/content_ICCV_2019/papers/Chen_Learning_Semantic-Specific_Graph_Representation_for_Multi-Label_Image_Recognition_ICCV_2019_paper.pdf)
+- [1] Tianshui Chen, Muxin Xu, Xiaolu Hui, Hefeng Wu, and Liang Lin. Learning semantic-specific graphrepresentation for multi-label image recognition. ICCV 2019. [Link](http://openaccess.thecvf.com/content_ICCV_2019/papers/Chen_Learning_Semantic-Specific_Graph_Representation_for_Multi-Label_Image_Recognition_ICCV_2019_paper.pdf).
 
-- [Zhao-Min Chen, Xiu-Shen Wei, Peng Wang, and Yanwen Guo. Multi-label image recognition with graph convolutional networks. CVPR 2019](http://openaccess.thecvf.com/content_CVPR_2019/papers/Chen_Multi-Label_Image_Recognition_With_Graph_Convolutional_Networks_CVPR_2019_paper.pdf)
+- [2] Zhao-Min Chen, Xiu-Shen Wei, Peng Wang, and Yanwen Guo. Multi-label image recognition with graph convolutional networks. CVPR 2019. [Link](http://openaccess.thecvf.com/content_CVPR_2019/papers/Chen_Multi-Label_Image_Recognition_With_Graph_Convolutional_Networks_CVPR_2019_paper.pdf).
 
-- [Kenneth Marino, Ruslan Salakhutdinov, and Abhinav Gupta. The more you know: Using knowledge graphs for image classification. CVPR 2017.](https://arxiv.org/pdf/1612.04844.pdf)
+- [3] Kenneth Marino, Ruslan Salakhutdinov, and Abhinav Gupta. The more you know: Using knowledge graphs for image classification. CVPR 2017. [Link](https://arxiv.org/pdf/1612.04844.pdf).
 
 
 

@@ -31,4 +31,4 @@ Therefore, we review three graph neural networks based methods that use this kno
 
 
 
-##### *Project for the MVA classes Graphs in Machine Learning and Object Recognition & Computer Vision: 2019-2020*
+##### *Project for the MVA classes Graphs in Machine Learning and Object Recognition & Computer Vision. 2019-2020*

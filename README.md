@@ -7,6 +7,8 @@ It appears that some objects are more likely to be found together,
 therefore graphs of relationships between labels can be leveraged to improve the usual classification pipeline. 
 Therefore, we review three graph neural networks based methods that use this knowledge to improve the performances of the models.
 
+Please read the report `report_graph.pdf` for more information. 
+
 ## Repository Organisation
 
 - `src/` : Source code.

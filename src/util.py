@@ -145,16 +145,16 @@ def plot_coocurence(matrix, classes, cmap=plt.cm.Blues, title='Coocurence Matrix
     fig, ax = plt.subplots(figsize=(12, 8))
 
     plt.imshow(matrix, interpolation='nearest', cmap=cmap)
-    plt.title(title, size=15)
+    plt.title(title, size=18)
     plt.colorbar()
     plt.grid(False)
     tick_marks = np.arange(-1, len(classes) + 1)
-    plt.xticks(tick_marks, [''] + classes + [''], rotation=80)
-    plt.yticks(tick_marks, [''] + classes + [''])
+    plt.xticks(tick_marks, [''] + classes + [''], rotation=80, fontsize=14)
+    plt.yticks(tick_marks, [''] + classes + [''], fontsize=14)
 
     plt.tight_layout()
-    plt.ylabel('True label', size=12)
-    plt.xlabel('Predicted label', size=12)
+    plt.ylabel('y', size=16)
+    plt.xlabel('x', size=16)
 
 
 def threshold_and_reweight_matrix(A, t=0.5, p=0.1):

@@ -22,7 +22,7 @@ TEST_IMGS = DATA_PATH + "ImageSets/Layout/test.txt"
 GLOVE_PATH = '../input/glove/'
 GLOVE_DIM = 300
 
-VISUAL_GENOME_PATH  = '../input/visual_genome/
+VISUAL_GENOME_PATH  = '../input/visual_genome/'
 
 CLASSES = [
         'aeroplane', 'bicycle', 'bird', 'boat',

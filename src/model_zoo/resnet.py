@@ -1,5 +1,3 @@
-# Adapted from https://github.com/facebookresearch/WSL-Images
-
 from imports import *
 from torchvision.models.resnet import *
 from torch.hub import load_state_dict_from_url
@@ -15,6 +13,10 @@ model_urls = {
         
 
 class ResNet(ResNet):
+    """
+    Slightly modified torchvision ResNet.
+    The last fully connected layer was removed for a more convenient use
+    """
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         del self.fc
@@ -44,6 +46,9 @@ class ResNet(ResNet):
 
 
 def _resnext(arch, block, layers, pretrained, progress, **kwargs):
+    """
+    [Taken from https://github.com/facebookresearch/WSL-Images]
+    """
     model = ResNet(block, layers, **kwargs)
     state_dict = load_state_dict_from_url(model_urls[arch], progress=progress)
     model.load_state_dict(state_dict)
@@ -51,7 +56,9 @@ def _resnext(arch, block, layers, pretrained, progress, **kwargs):
 
 
 def resnext101_32x8d_wsl(progress=True, **kwargs):
-    """Constructs a ResNeXt-101 32x8 model pre-trained on weakly-supervised data
+    """
+    [Taken from https://github.com/facebookresearch/WSL-Images]
+    Constructs a ResNeXt-101 32x8 model pre-trained on weakly-supervised data
     and finetuned on ImageNet from Figure 5 in
     `"Exploring the Limits of Weakly Supervised Pretraining" <https://arxiv.org/abs/1805.00932>`_
     Args:
@@ -63,7 +70,9 @@ def resnext101_32x8d_wsl(progress=True, **kwargs):
 
 
 def resnext101_32x16d_wsl(progress=True, **kwargs):
-    """Constructs a ResNeXt-101 32x16 model pre-trained on weakly-supervised data
+    """
+    [Taken from https://github.com/facebookresearch/WSL-Images]
+    Constructs a ResNeXt-101 32x16 model pre-trained on weakly-supervised data
     and finetuned on ImageNet from Figure 5 in
     `"Exploring the Limits of Weakly Supervised Pretraining" <https://arxiv.org/abs/1805.00932>`_
     Args:
@@ -75,7 +84,9 @@ def resnext101_32x16d_wsl(progress=True, **kwargs):
 
 
 def resnext101_32x32d_wsl(progress=True, **kwargs):
-    """Constructs a ResNeXt-101 32x32 model pre-trained on weakly-supervised data
+    """
+    [Taken from https://github.com/facebookresearch/WSL-Images]
+    Constructs a ResNeXt-101 32x32 model pre-trained on weakly-supervised data
     and finetuned on ImageNet from Figure 5 in
     `"Exploring the Limits of Weakly Supervised Pretraining" <https://arxiv.org/abs/1805.00932>`_
     Args:
@@ -87,7 +98,9 @@ def resnext101_32x32d_wsl(progress=True, **kwargs):
 
 
 def resnext101_32x48d_wsl(progress=True, **kwargs):
-    """Constructs a ResNeXt-101 32x48 model pre-trained on weakly-supervised data
+    """
+    [Taken from https://github.com/facebookresearch/WSL-Images]
+    Constructs a ResNeXt-101 32x48 model pre-trained on weakly-supervised data
     and finetuned on ImageNet from Figure 5 in
     `"Exploring the Limits of Weakly Supervised Pretraining" <https://arxiv.org/abs/1805.00932>`_
     Args:

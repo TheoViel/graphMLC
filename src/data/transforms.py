@@ -16,7 +16,8 @@ def to_tensor(x, **kwargs):
 
 
 def get_transfos(size=256, test=False, **kwargs):
-    """[summary]
+    """
+    Returns the transformations
     
     Keyword Arguments:
         size {int} -- Image size (default: {256})
@@ -54,6 +55,7 @@ def get_transfos_lssg(size=224, scale_size=640, test=False):
     """
     Transforms applied in the paper : 
     Tianshui Chen, Muxin Xu, Xiaolu Hui, Hefeng Wu, and Liang Lin. Learning semantic-specific graphrepresentation for multi-label image recognition
+    (http://openaccess.thecvf.com/content_ICCV_2019/papers/Chen_Learning_Semantic-Specific_Graph_Representation_for_Multi-Label_Image_Recognition_ICCV_2019_paper.pdf)
     
     Keyword Arguments:
         size {int} -- Image size (default: {224})

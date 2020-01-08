@@ -93,9 +93,7 @@ class SemanticInteraction(nn.Module):
         self.Ur = nn.Linear(input_features, input_features, bias=False)
         self.W = nn.Linear(2 * input_features, input_features, bias=False)
         self.U = nn.Linear(input_features, input_features, bias=False)
-        """
-        fc : Features vector of all categories (bs, c, input_ft)
-        """
+
     def forward(self, fc):
         """
         Usual torch forward function
@@ -188,7 +186,7 @@ class SSGRLClassifier(Model):
             x {torch tensor} -- Batch of images, expect of size (batch_size x 3 x img_size x img_size)
         
         Returns:
-            [type] -- Logits, should be of size (batch_size x num_classes)
+            torch tensor -- Logits, should be of size (batch_size x num_classes)
         """
         x = self.backbone(x)
         x = self.pooler(x)

@@ -28,6 +28,17 @@ SETTINGS = {
 
 
 def get_encoder(settings):
+    """
+    Builds a CNN architecture settings["encoder"] using settings["params"],
+    and loads the pretrained weight from settings["pretrained_settings"]["url"]
+    Implemented only for some ResNets here
+
+    Arguments:
+        settings {dict} -- Settings dictionary associated to a model
+    
+    Returns:
+        Pretrained model
+    """
     Encoder = settings["encoder"]
     encoder = Encoder(**settings["params"])
     encoder.out_shapes = settings["out_shapes"]
@@ -40,16 +51,34 @@ def get_encoder(settings):
 
 
 def adaptive_concat_pool2d(x, sz=1):
+    """
+    Pooler concatenating adaptive_avg_pool2d(x, sz) and adaptive_max_pool2d(x, sz)
+    
+    Arguments:
+        x {torch tensor} -- Input feature maps, expected of size (batch_size x features x h x w) if sz=1
+    
+    Keyword Arguments:
+        sz {int} -- Axis to pool on (default: {1})
+    
+    Returns:
+        torch tensor -- Pooled output, should be of size (batch_size x 2*features)
+    """
     out1 = F.adaptive_avg_pool2d(x, sz)
     out2 = F.adaptive_max_pool2d(x, sz)
     return torch.cat([out1, out2], 1)
 
 
 class Model(nn.Module):
+    """
+    Wrapper to initialize CNNs.
+    """
     def __init__(self):
         super().__init__()
 
     def initialize(self):
+        """
+        Initializes Conv2ds with kaiming_normand and batchnorm with weight 1 and bias 0.
+        """
         for m in self.modules():
             if isinstance(m, nn.Conv2d):
                 nn.init.kaiming_normal_(m.weight, mode="fan_out", nonlinearity="relu")

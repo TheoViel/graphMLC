@@ -1,6 +1,34 @@
 from imports import *
 
 
+def freeze_bn(m):
+    """
+    Freezes batchnorm in a model
+
+    Arguments:
+        m {torch module} -- Model
+    """
+    classname = m.__class__.__name__
+    if classname.find('BatchNorm') != -1:
+        m.eval()
+        m.weight.requires_grad = False
+        m.bias.requires_grad = False
+
+
+def unfreeze_bn(m):
+    """
+    Unfreezes batchnorm in a model
+
+    Arguments:
+        m {torch module} -- Model
+    """
+    classname = m.__class__.__name__
+    if classname.find('BatchNorm') != -1:
+        m.train()
+        m.weight.requires_grad = True
+        m.bias.requires_grad = True
+
+
 def freeze(m):
     """
     Freezes a model
@@ -15,7 +43,7 @@ def freeze(m):
 
 def unfreeze(m):
     """
-    Unreezes a model
+    Unfreezes a model
     
     Arguments:
         m {torch module} -- Model to unfreeze

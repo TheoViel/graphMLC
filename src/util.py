@@ -1,6 +1,6 @@
 from imports import *
 from params import *
-
+from training.train import predict
 
 def seed_everything(seed):
     """
@@ -181,3 +181,41 @@ def threshold_and_reweight_matrix(A, t=0.5, p=0.1):
     np.fill_diagonal(A, 1 - p)
     
     return A
+
+
+def plot_results(model, dataset, n_plot=10, n_labels=5):
+    """
+    Plots an image, shows the true labels and the ones predicted with highest probability.
+    Only plots images with several labels.
+    
+    Arguments:
+        model {torch model} -- Model to get predictions from
+        dataset {torch dataset} -- Dataset to predict on
+    
+    Keyword Arguments:
+        n_plot {int} -- Number of images to plot (default: {10})
+        n_labels {int} -- Number of labels to display (default: {3})
+    """
+    preds = predict(model, dataset)
+    
+    for i in range(n_plot):
+        img, truth = dataset[i]
+
+        if truth.sum() > 1:
+        
+            pred = preds[i].argsort()[::-1][:n_labels]
+            
+            img = np.clip(
+                img * STD[:, np.newaxis, np.newaxis] + MEAN[:, np.newaxis, np.newaxis], 0, 1
+            )
+            img = img.transpose(1, 2, 0)
+            
+            plt.figure(figsize=(8, 8))
+            plt.imshow(img)
+            
+            t = ', '.join([CLASSES[i] for i, v in enumerate(truth) if v])
+            p = ', '.join([CLASSES[i] for i in pred])
+            plt.title(f'Truth : "{t}""  --  Most likely predictions : "{p}""')
+            plt.grid(False)
+            plt.axis(False)
+            plt.show()

@@ -121,7 +121,7 @@ class GGNNClassifier(Model):
         self.logits = nn.Linear(self.nb_ft, self.nb_edges)
 
         if use_ggnn:
-            self.ggnn = GGNN(ggnn_dim, A_in, A_out, c=num_classes, time_steps=time_steps)
+            self.ggnn = GGNN(ggnn_dim, A_in, A_out, time_steps=time_steps)
             self.out_fts = self.nb_edges  * ggnn_dim
             self.out = nn.Linear(self.nb_edges + self.out_fts, num_classes)
             

@@ -33,6 +33,7 @@ CLASSES = [
         'tvmonitor'
         ]
 NUM_CLASSES = len(CLASSES)
+CLASS_COLORS = ['r', 'r', 'g', 'r', 'b', 'r', 'r', 'g', 'b', 'g', 'b', 'g', 'g', 'r', 'g', 'b', 'g', 'b', 'r', 'b']
 
 MEAN = np.array([0.485, 0.456, 0.406])
 STD = np.array([0.229, 0.224, 0.225])
@@ -44,3 +45,4 @@ DEVICE = torch.device("cuda") if torch.cuda.is_available() else torch.device("cp
 
 IMG_SIZE = 224
 # IMG_SIZE = 576
+
